@@ -1,9 +1,11 @@
-## mpc24_bonus_exercise
-Model Predictive Control FS2024 151-0660-00L
+# mpc24_bonus_exercise
 
-Team: Roland, Robin & Nicholas
+## Model Predictive Control FS2024 151-0660-00L
 
-# start a new task
+**Team: Roland, Robin & Nicholas**
+
+### start a new task
+
 git checkout main
 git checkout -b task_XX
 ...
@@ -14,12 +16,13 @@ git push --set-upstream origin task_XX
 or
 git push
 
-# complete a task
-1. pass all tests specified in 'Deliverable summary' (PDF)
-test_struct = run_tests(function_name);
+### complete a task
 
-2. open pull request
+1. open pull request <br>
 Title: 'task_XX complete'
+
+2. pass all tests specified in 'Deliverable summary' (PDF) <br>
+test_struct = run_tests(function_name);
 
 3. (discuss with teammates)
 
