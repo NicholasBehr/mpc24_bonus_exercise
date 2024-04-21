@@ -1,22 +1,22 @@
 # mpc24_bonus_exercise
 
-## Model Predictive Control FS2024 151-0660-00L
+**Model Predictive Control FS2024 151-0660-00L**
 
 **Team: Roland, Robin & Nicholas**
 
-### start a new task
+### How to start a new task?
 
-git checkout main
+git checkout main <br>
 git checkout -b task_XX
-...
-git add .
+
+git add . <br>
 git commit -m 'description'
-...
-git push --set-upstream origin task_XX
-or
+
+git push --set-upstream origin task_XX <br>
+or <br>
 git push
 
-### complete a task
+### How to complete a task?
 
 1. open pull request <br>
 Title: 'task_XX complete'
