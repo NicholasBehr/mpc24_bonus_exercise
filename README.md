@@ -4,7 +4,7 @@
 
 **Team: Roland, Robin & Nicholas**
 
-### How to start a new task?
+## How to start a new task?
 
 git checkout main <br>
 git checkout -b task_XX
@@ -16,10 +16,11 @@ git push --set-upstream origin task_XX <br>
 or <br>
 git push
 
-### How to complete a task?
+## How to complete a task?
 
 1. open pull request <br>
-Title: 'task_XX complete'
+Title: 'task_XX complete' <br>
+Description: 'task description (of PDF)'
 
 2. pass all tests specified in 'Deliverable summary' (PDF) <br>
 test_struct = run_tests(function_name);
