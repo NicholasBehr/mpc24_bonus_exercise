@@ -13,12 +13,12 @@ classdef LQR
     
     methods
         function obj = LQR(Q,R,params)
-            % obj.K = ...
+            obj.K = ...
         end
 
         function [u, ctrl_info] = eval(obj,x)
             % u = ...
-            % ctrl_info = ...
+            ctrl_info.ctrl_feas = true;
         end
     end
 end
