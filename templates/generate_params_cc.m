@@ -63,5 +63,19 @@ function [params] = generate_params_cc()
     params.model.D = zeros(params.model.nx, params.model.nu);
 
     % CONTINUE BELOW THIS LINE
+    % complete model
+    [Ac, Bc, Bd_c] = generate_system_cont_cc(params);
+    [Ad, Bd, Bd_d] = discretize_system_dist(Ac, Bc, Bd_c, params);
 
+    params.model.A = Ad;
+    params.model.B = Bd;
+    params.model.Bd = Bd_d;
+
+    % complete constrains
+    [H_u, h_u, H_x, h_x] = generate_constraints_cc(params);
+
+    params.constraints.InputMatrix = H_u;
+    params.constraints.InputRHS = h_u;
+    params.constraints.StateMatrix = H_x;
+    params.constraints.StateRHS = h_x;
 end
