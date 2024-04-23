@@ -14,7 +14,4 @@ sys_d = c2d(sys_c, params.model.TimeStep);
 Ad = sys_d.A;
 Bd = sys_d.B(:, 1:size(Bc, 2));
 Bd_d = sys_d.B(:, size(Bc, 2)+1:end);
-
-
-
 end
