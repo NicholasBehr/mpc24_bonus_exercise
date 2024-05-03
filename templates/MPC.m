@@ -15,6 +15,20 @@ classdef MPC
         function obj = MPC(Q,R,N,params)
             
             % ADD STUFF HERE
+            U = sdpvar(repmat(params.model.nu,1,N),repmat(1,1,N));
+            X0 = sdpvar(params.model.nx,1);
+            
+            constraints = [];
+            objective = 0;
+            x = X0;
+            P = zeros(params.model.nx, params.model.nx);
+
+            for k = 1:N
+                x = params.model.A*x + params.model.B*U{k};
+                objective = objective + norm(Q*x,1) + norm(R*U{k},1);
+                constraints = [constraints, -1 <= U{k}<= 1, -5<=x<=5];
+            end
+            objective = objective + norm(P*x,1);
 
             opts = sdpsettings('verbose',1,'solver','quadprog');
             obj.yalmip_optimizer = optimizer(constraints,objective,opts,X0,{U{1} objective});
