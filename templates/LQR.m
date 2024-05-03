@@ -13,13 +13,12 @@ classdef LQR
     
     methods
         function obj = LQR(Q,R,params)
-            [~,K,~] = idare(params.model.A,params.model.B,Q,R);
-            obj.K = -K;
+            % obj.K = ...
         end
 
         function [u, ctrl_info] = eval(obj,x)
-            u = obj.K * x;
-            ctrl_info.ctrl_feas = true;
+            % u = ...
+            % ctrl_info = ...
         end
     end
 end

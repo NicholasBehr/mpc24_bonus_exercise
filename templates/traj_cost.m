@@ -8,15 +8,5 @@
 
 function cost = traj_cost(x,u,Q,R)
 
-cost = 0;
-
-for xt = x(:, 1:end-1)
-    cost = cost + xt'*Q*xt;
-end
-
-for ut = u
-    cost = cost + ut'*R*ut;
-end
-
 end
 
