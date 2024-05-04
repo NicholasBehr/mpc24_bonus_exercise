@@ -15,23 +15,29 @@ classdef MPC
         function obj = MPC(Q,R,N,params)
             
             % ADD STUFF HERE
-            U = sdpvar(repmat(params.model.nu,1,N),repmat(1,1,N));
-            X0 = sdpvar(params.model.nx,1);
+            u = sdpvar(repmat(params.model.nu,1,N),repmat(1,1,N));
+            x = sdpvar(repmat(params.model.nx,1,N+1),repmat(1,1,N+1));
             
             constraints = [];
             objective = 0;
-            x = X0;
-            P = zeros(params.model.nx, params.model.nx);
-
+            
+            [P,~,~] = idare(params.model.A,params.model.B,Q,R);
+            
+            Hx = params.constraints.StateMatrix;
+            hx = params.constraints.StateRHS;
+            Hu = params.constraints.InputMatrix;
+            hu = params.constraints.InputRHS;
+                       
             for k = 1:N
-                x = params.model.A*x + params.model.B*U{k};
-                objective = objective + norm(Q*x,1) + norm(R*U{k},1);
-                constraints = [constraints, -1 <= U{k}<= 1, -5<=x<=5];
+                objective = objective + x{k}'*Q*x{k} + u{k}'*R*u{k};
+                constraints = [constraints, x{k+1} == params.model.A*x{k} + params.model.B*u{k}];
+                constraints = [constraints, Hx * x{k} <= hx, Hu  * u{k} <= hu];
             end
-            objective = objective + norm(P*x,1);
+            objective = objective + x{N+1}'*P*x{N+1};
 
             opts = sdpsettings('verbose',1,'solver','quadprog');
-            obj.yalmip_optimizer = optimizer(constraints,objective,opts,X0,{U{1} objective});
+            obj.yalmip_optimizer = optimizer(constraints,objective,opts,x{1},{u{:} objective});
+
         end
 
         function [u, ctrl_info] = eval(obj,x)
