@@ -6,7 +6,13 @@
 % Please see the LICENSE file that has been included as part of this package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% ADD STUFF HERE
+
+v = 100000;
+v_t = 100000;
+S = 10*eye(6);
+S_t = 5*eye(56);
+
+
 
 %% Save
 current_folder = fileparts(which(mfilename));
