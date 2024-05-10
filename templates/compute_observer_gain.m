@@ -8,4 +8,9 @@
 
 function [L] = compute_observer_gain(poles, params_aug_obs)
 
+A_obs = params_aug_obs.model.A;
+C_obs = params_aug_obs.model.C;
+
+L = -place(A_obs', C_obs', poles)';
+
 end
