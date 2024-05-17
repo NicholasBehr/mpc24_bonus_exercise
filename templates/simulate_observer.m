@@ -21,11 +21,12 @@ function [X, U, X_est, D_est, ctrl_info] = simulate_observer(x0, x0_est, d0_est,
     for k=1:params.exercise.SimHorizon
         % Step 1
         [x_s, u_s] = compute_steady_state(params, D_est(:,k));
-
+        
         % Step 2
         [U(:,k), ctrl_info(k)] = ctrl.eval(X_est(:,k), D_est(:,k), x_s, u_s);
+
         % Step 3
-        X(:,k+1) = params.model.A*X(:,k) + params.model.B*U(:,k) + Disturbances(:,k);
+        X(:,k+1) = params.model.A*X(:,k) + params.model.B*U(:,k) + params.model.Bd*Disturbances(:,k);
         
         % Measurement
 
