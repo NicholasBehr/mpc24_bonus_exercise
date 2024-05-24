@@ -6,11 +6,17 @@
 % Please see the LICENSE file that has been included as part of this package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [L] = compute_observer_gain(poles, params_aug_obs)
+function cost = traj_cost(x,u,Q,R)
 
-A_obs = params_aug_obs.model.A;
-C_obs = params_aug_obs.model.C;
+cost = 0;
 
-L = -place(A_obs', C_obs', poles)';
+for xt = x(:, 1:end-1)
+    cost = cost + xt'*Q*xt;
+end
+
+for ut = u
+    cost = cost + ut'*R*ut;
+end
 
 end
+

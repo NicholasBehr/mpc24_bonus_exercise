@@ -6,11 +6,6 @@
 % Please see the LICENSE file that has been included as part of this package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [L] = compute_observer_gain(poles, params_aug_obs)
-
-A_obs = params_aug_obs.model.A;
-C_obs = params_aug_obs.model.C;
-
-L = -place(A_obs', C_obs', poles)';
-
+function [H_tube,h_tube,n_iter] = compute_minRPI(K_tube,params,do_plot)
+    
 end

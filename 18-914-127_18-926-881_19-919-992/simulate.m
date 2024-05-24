@@ -6,11 +6,19 @@
 % Please see the LICENSE file that has been included as part of this package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [L] = compute_observer_gain(poles, params_aug_obs)
+function [x,u,ctrl_info] = simulate(x0, ctrl, params)
+    
+    q = ones(1,params.model.nx);
+    r = ones(1,params.model.nu);
 
-A_obs = params_aug_obs.model.A;
-C_obs = params_aug_obs.model.C;
-
-L = -place(A_obs', C_obs', poles)';
+    Q = diag(q);
+    R = diag(r);
+    x = zeros(params.model.nx,params.exercise.SimHorizon+1);
+    x(:,1) = x0;
+    u = zeros(params.model.nu,params.exercise.SimHorizon);
+    for k=1:params.exercise.SimHorizon
+        [u(:,k), ctrl_info(k)] = ctrl.eval(x(:,k));
+        x(:,k+1) = params.model.A*x(:,k) + params.model.B*u(:,k);
+    end
 
 end

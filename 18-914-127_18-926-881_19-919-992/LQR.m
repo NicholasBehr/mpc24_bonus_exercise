@@ -6,24 +6,20 @@
 % Please see the LICENSE file that has been included as part of this package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-classdef Linear_Observer
+classdef LQR
     properties
-        L % Observer gain matrix
-        params
+        K
     end
     
     methods
-        function obj = Linear_Observer(L, params)
-            % Constructor to initialize the observer with the provided gain matrix L
-            obj.L = L;
-            obj.params = params;
+        function obj = LQR(Q,R,params)
+            [~,K,~] = idare(params.model.A,params.model.B,Q,R);
+            obj.K = -K;
         end
-        
-        function x0_est_pred = eval(obj, x0_est, u, y)
-            x0_est_pred = ...
-                obj.params.model.A*x0_est ...
-                + obj.params.model.B*u...
-                + obj.L*(obj.params.model.C*x0_est - y); 
+
+        function [u, ctrl_info] = eval(obj,x)
+            u = obj.K * x;
+            ctrl_info.ctrl_feas = true;
         end
     end
 end
